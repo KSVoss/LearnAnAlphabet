@@ -3,4 +3,6 @@
 /backend/mvnw.cmd
 /backend/.mvn
 /backend/target
+/frontend/node_modules
 *./*.iml
+/frontend/node_modules/
