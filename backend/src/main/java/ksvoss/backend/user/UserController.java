@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/newuser")
+@RequestMapping
 public class UserController {
     private final UserService userService;
 
@@ -17,10 +17,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping("/newuser")
     public ResponseEntity<User> addUser(@RequestBody NewUser userToAdd){
         User newUser=userService.addUser(userToAdd);
-        if(newUser!=null)
+         if(newUser!=null)
             return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(newUser);

@@ -33,4 +33,33 @@ public class User {
         this.preferedLanguage="deutsch";
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getMailadress() {
+        return mailadress;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public String getPreferedLanguage() {
+        return preferedLanguage;
+    }
+
+    public boolean isWeightedRadomize() {
+        return weightedRadomize;
+    }
+
+    public LearnedElement[] getLearnedElements() {
+        return learnedElements;
+    }
 }
