@@ -32,8 +32,7 @@ public record Alphabet(
 		return "Alphabet{" +
 				"id=" + id +
 				", names=" + Arrays.toString(names) +
-				", pronunciationSoundfile=" + Arrays.toString(pronunciationSoundfile) +
-				", letters=" + Arrays.toString(letters) +
+ 				", letters=" + Arrays.toString(letters) +
 				'}';
 	}
 }

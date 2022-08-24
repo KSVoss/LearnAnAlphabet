@@ -34,9 +34,6 @@ public record Letter(
                         ", signAsText='" + signAsText + '\'' +
                         ", signAsPicture=" + Arrays.toString(signAsPicture) +
                         ", spelling='" + spelling + '\'' +
-                        ", pronunciationStartInMs=" + pronunciationStartInMs +
-                        ", pronunciationDurationMs=" + pronunciationDurationMs +
-                        ", pronunciationUrl='" + pronunciationUrl + '\'' +
                         '}';
         }
 }
