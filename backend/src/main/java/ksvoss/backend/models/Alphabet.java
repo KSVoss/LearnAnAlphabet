@@ -15,12 +15,16 @@ public record Alphabet(
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Alphabet alphabet = (Alphabet) o;
-		return id == alphabet.id;
+		return id == alphabet.id && Arrays.equals(names, alphabet.names) && Arrays.equals(pronunciationSoundfile, alphabet.pronunciationSoundfile) && Arrays.equals(letters, alphabet.letters);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		int result = Objects.hash(id);
+		result = 31 * result + Arrays.hashCode(names);
+		result = 31 * result + Arrays.hashCode(pronunciationSoundfile);
+		result = 31 * result + Arrays.hashCode(letters);
+		return result;
 	}
 
 	@Override
