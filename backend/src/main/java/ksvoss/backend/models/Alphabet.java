@@ -1,30 +1,27 @@
 package ksvoss.backend.models;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public record Alphabet(
+
+
         int id,
 	    AlphabetNameInDifferentLanguage[] names,
-        byte[] pronunciationSoundfile,
-        Letter[] letters
-
-) {
+		List<Letter> letters)
+{
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Alphabet alphabet = (Alphabet) o;
-		return id == alphabet.id && Arrays.equals(names, alphabet.names) && Arrays.equals(pronunciationSoundfile, alphabet.pronunciationSoundfile) && Arrays.equals(letters, alphabet.letters);
+		return id == alphabet.id;
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(id);
-		result = 31 * result + Arrays.hashCode(names);
-		result = 31 * result + Arrays.hashCode(pronunciationSoundfile);
-		result = 31 * result + Arrays.hashCode(letters);
-		return result;
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -32,7 +29,19 @@ public record Alphabet(
 		return "Alphabet{" +
 				"id=" + id +
 				", names=" + Arrays.toString(names) +
- 				", letters=" + Arrays.toString(letters) +
+				", letters=" + letters +
 				'}';
+	}
+
+	public String name(String preferredLanguage){
+
+		if(names.length==0){
+			return names[0].name();
+		}
+ 		for(int i=0;i< names.length;i++){
+			 System.out.println("i:"+i+" Language:"+names[i].language());
+			if(names[i].language().equals(preferredLanguage))return names[i].name();
+ 		}
+		return names[0].name();
 	}
 }

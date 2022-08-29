@@ -3,9 +3,12 @@ package ksvoss.backend.models;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AlphabetTest {
+
 
     @Test
     void testEquals() {
@@ -17,12 +20,10 @@ class AlphabetTest {
         AlphabetNameInDifferentLanguage deutsch=new AlphabetNameInDifferentLanguage("deutsch","alt-griechisch");
         Alphabet alphabet1=new Alphabet(5
                 , new AlphabetNameInDifferentLanguage[]{deutsch}
-                ,null
-                ,new Letter[]{letter1,letter2});
+                , List.of( letter1,letter2));
         Alphabet alphabet2=new Alphabet(5
                 , new AlphabetNameInDifferentLanguage[]{deutsch}
-                ,null
-                ,new Letter[]{letter1,letter2});
+                 ,List.of( letter1,letter2));
         // when
         boolean actual=alphabet1.equals(alphabet2);
         // then
@@ -40,12 +41,11 @@ class AlphabetTest {
         AlphabetNameInDifferentLanguage deutsch=new AlphabetNameInDifferentLanguage("deutsch","alt-griechisch");
         Alphabet alphabet1=new Alphabet(5
                 , new AlphabetNameInDifferentLanguage[]{deutsch}
-                ,null
-                ,new Letter[]{letter1,letter2});
+
+                ,List.of(letter1,letter2));
         Alphabet alphabet2=new Alphabet(5
                 , new AlphabetNameInDifferentLanguage[]{deutsch}
-                ,null
-                ,new Letter[]{letter1,letter2});
+                 ,List.of(letter1,letter2));
         // when
         int actual=alphabet1.hashCode();
         // then
@@ -63,8 +63,8 @@ class AlphabetTest {
         AlphabetNameInDifferentLanguage deutsch=new AlphabetNameInDifferentLanguage("deutsch","alt-griechisch");
         Alphabet alphabet=new Alphabet(5
                 , new AlphabetNameInDifferentLanguage[]{deutsch}
-                ,null
-                ,new Letter[]{letter1,letter2});
+
+                , List.of(letter1,letter2));
         // when
         String actual=alphabet.toString();
 
