@@ -18,11 +18,36 @@ export default function App() {
           <HashRouter>
               <h1>Learn an Alphabet</h1>
             <Routes>
-                <Route path={"/"} element={<Userlogin/>}/>
-                <Route path={"/userlogin"} element={<Userlogin/>}/>
+                <Route path={"/"} element={<Userlogin
+                    userId={hooks.userId}
+                    setUserId={hooks.setUserId}
+                    setSelectedAlphabet={hooks.setSelectedAlphabet}
+                    user={hooks.user}
+                    setUser={hooks.setUser}
+                    trainingLetter={hooks.trainingLetter}
+                    setTrainingLetter={hooks.setTrainingLetter}/>}/>
+                <Route path={"/userlogin"} element={<Userlogin
+                    userId={hooks.userId}
+                    setUserId={hooks.setUserId}
+                    setSelectedAlphabet={hooks.setSelectedAlphabet}
+                    user={hooks.user}
+                    setUser={hooks.setUser}
+                    trainingLetter={hooks.trainingLetter}
+                    setTrainingLetter={hooks.setTrainingLetter}
+                />}/>
                 <Route path={"/newuser"} element={<Newuser/>}/>
-                <Route path={"/training"} element={<Training signToTrain={hooks.signToTrain} giveSign={hooks.giveSign} />}/>
-                <Route path={"/selectalphabet"} element={<Selectalphabet/>}/>
+                <Route path={"/training"} element={<Training
+                    signToTrain={hooks.signToTrain}
+                    giveSign={hooks.giveSign}
+                    userId={hooks.userId}
+                    trainingLetter={hooks.trainingLetter}
+                    setTrainingLetter={hooks.trainingLetter}
+
+                />}/>
+                <Route path={"/selectalphabet"} element={<Selectalphabet
+                    userId={hooks.userId}
+                    selectedAlphabet={hooks.selectedAlphabet}
+                    setSelectedAlphabet={hooks.setSelectedAlphabet}/>}/>
                 <Route path={"/forgotpassword"} element={<Forgotpassword/>}/>
                 <Route path={"/changeuserdata"} element={<Changeuserdata/>}/>
             </Routes>

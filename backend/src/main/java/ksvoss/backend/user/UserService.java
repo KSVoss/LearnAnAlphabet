@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,23 +20,38 @@ public class UserService {
 
     @Autowired
     private AlphabetRepository alphabetRepository;
-    public String userLogin(UserLoginData userLoginData) {
+    public UserLoginBody userLogin(UserLoginData userLoginData) {
         Optional<User> userOptional;
 
         userOptional = userRepository.findUserByMailadress(userLoginData.mailadress());
         if (userOptional.isPresent()) {
             if (userOptional.get().isPasswordCorrect(userLoginData.password())) {
-                return userOptional.get().getId();
+
+                return new UserLoginBody(
+                        userOptional.get().getId()
+                        ,userOptional.get().getSelectedAlphabetId()
+                        ,userOptional.get().getNickname()
+                        ,userOptional.get().isWeightedRadomize());
             } else {
-                return "WRONG_PASSWORD";
+                return new UserLoginBody("WRONG_PASSWORD",0,null,false);
             }
         }
-        return "UNKNOWN_USER";
+        return new UserLoginBody("UNKNOWN_USER",0,null,false);
+    }
+    public User userLogin(UserLoginData userLoginData,int i) {
+        Optional<User> userOptional;
+
+        userOptional = userRepository.findUserByMailadress(userLoginData.mailadress());
+        if (userOptional.isPresent()) {
+            return userOptional.get();}
+        return null;
+
     }
 
     private User getUser(String userid){
         Optional<User> user=userRepository.findById(userid);
         if(user.isEmpty ())return null;     // ersetzen durch exception
+        System.out.println("User geladen");
         return user.get();
     }
     private void saveUser(User user){
@@ -93,7 +109,7 @@ public class UserService {
     public LearnedElement getRandomElement(String userid){
          Optional<User> user=userRepository.findById(userid);
          if(!user.isPresent())return null;   // durch exeption ersetzen
-         return user.get().getRandomElement(user.get().getSelectedAlphabetId());
+         return user.get().getRandomElement( );
 
     }
     public NameOfAlphabetsAndSelectedAlphabet getNamesOfAlphabet(String userId) {
@@ -117,12 +133,12 @@ public class UserService {
     public ElementToTrain nextElement(String userid) {
         Optional<User> user=userRepository.findById(userid);
         if(user.isEmpty())return null;   // durch exception ersetzen
-        LearnedElement learnedElement=user.get().getRandomElement(user.get().getSelectedAlphabetId());
+        LearnedElement learnedElement=user.get().getRandomElement( );
         userRepository.save(user.get());
         Optional<Alphabet> alphabet=alphabetRepository.findById(learnedElement.getAlphabetID());
         if(alphabet.isEmpty())return null;   // durch exception ersetzen
         Letter letter=alphabet.get().letters().get(learnedElement.getLetterID());
-        return new ElementToTrain(letter);
+        return new ElementToTrain(letter,learnedElement.getAlphabetID(),learnedElement.getLetterID(),true);
      }
 
     public void selectLanguage(String userid, int alphabetId) {
@@ -143,8 +159,93 @@ public class UserService {
 
     public void wasTrained(String userid, boolean isAnswerCorrect) {
         User user=getUser(userid);
-        user.saveAnswer(isAnswerCorrect);
+
+        user.saveAnswer(isAnswerCorrect,0,0);
         saveUser(user);
 
+    }
+
+    public List<LetterToSelect> getListOfLetters(String userId){
+        List<LetterToSelect> letterToSelectList=new ArrayList<>();
+        User user=getUser(userId);
+        int selectedAlphabet= user.getSelectedAlphabetId();
+        Optional<Alphabet> alphabet=alphabetRepository.findById(selectedAlphabet);
+        if(alphabet.isEmpty()) return null; // ersetzen durch Exception
+        LetterToSelect lettersToSelect[]=new LetterToSelect[alphabet.get().letters().size()];
+
+
+        for (Letter letter : alphabet.get().letters()
+             ) {
+            lettersToSelect[letter.id()]=new LetterToSelect(letter);
+        }
+        for (LearnedElement learnedElement:user.getLearnedElements())
+        {
+            if(learnedElement.getAlphabetID()==user.getSelectedAlphabetId()){
+            lettersToSelect[learnedElement.getLetterID()].addlearnedStatus(learnedElement);}
+        }
+        letterToSelectList= Arrays.stream(lettersToSelect).toList();
+
+        //System.out.println(letterToSelectList);
+
+
+
+        return letterToSelectList;
+    }
+
+    public void selectAlphabet(String userid, int selectedAlphabet) {
+        User user=getUser(userid);
+        user.setSelectedAlphabetId(selectedAlphabet);
+        System.out.println("Nach Service"+user.getSelectedAlphabetId());
+
+        saveUser(user);
+    }
+
+    private Alphabet findAlphabetById(int id){
+        Optional<Alphabet> alphabet = alphabetRepository.findById(id);
+        if(alphabet.isEmpty())return null;  // throw exception
+        return alphabet.get();
+    }
+
+    private ElementToTrain learnedElementToElementToTrain(LearnedElement learnedElement){
+        String letterAsString;
+        String spelling;
+        int alphabetId;
+        int letterId;
+        boolean correctAnswer;
+        alphabetId=learnedElement.getAlphabetID();
+        letterId=learnedElement.getLetterID();
+        Letter letter=findAlphabetById(alphabetId).findLetterById(letterId);
+
+        letterAsString=letter.signAsText();
+        spelling=letter.spelling();
+
+        return new ElementToTrain( letterAsString,spelling,alphabetId,letterId,false);
+    }
+
+    public ElementToTrain saveResultAndGetNextElement(String userid, ElementToTrain trainedElement) {
+        User user=getUser(userid);
+        user.saveAnswer(trainedElement.correctAnswer(),trainedElement.alphabetId(),trainedElement.letterId());
+
+
+
+        LearnedElement randomElement=user.getRandomElement2(trainedElement);
+        ElementToTrain nextElement=learnedElementToElementToTrain(randomElement);
+
+        saveUser(user);
+        return nextElement;
+
+    }
+
+    public ElementToTrain getFirstElement(String userid) {
+        User user=getUser(userid);
+        System.out.println("Service getFirstElement");
+
+        LearnedElement randomElement=user.getRandomElement2(
+                new ElementToTrain("","",0,0,true));
+
+        System.out.println("Service Element to Train:"+randomElement.toString());
+        ElementToTrain nextElement=learnedElementToElementToTrain(randomElement);
+
+        return nextElement;
     }
 }

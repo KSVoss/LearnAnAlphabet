@@ -18,28 +18,76 @@ public class UserController {
 
     @GetMapping("/getallalphabetnames/{userid}")
     public NameOfAlphabetsAndSelectedAlphabet getNamesOfAlphabets(@PathVariable String userid){
+        System.out.println("/getallalphabetnames");
         return userService.getNamesOfAlphabet(userid);
     }
 
-    @PutMapping("/wastrined/{userid}")
-    public void wasTrained(@PathVariable String userid,@RequestBody boolean isAnswerCorrect){
-        userService.wasTrained(userid, isAnswerCorrect);
+    @PutMapping("/wastrained/{userid}")
+    public void wasTrained(@PathVariable String userid,String  isAnswerCorrect){
+        System.out.println("/wastrained");
+
+        System.out.println("Wert:"+isAnswerCorrect);
+        System.out.println("wastrained:"+isAnswerCorrect.equals("true"));
+        userService.wasTrained(userid, isAnswerCorrect.equals( "true"));
     }
     @PutMapping("/selectlanguage/{userid}")
     public void selectLanguage(@PathVariable String userid, @RequestBody int alphabetId){
+        System.out.println("/selectlanguage");
         userService.selectLanguage(userid, alphabetId);
     }
 
+    @PutMapping("/selectAlphabet/{userid}")
+    public void selectAlphabet(@PathVariable String userid, String selectedAlphabet){
+        // userService.selectAlphabet(userid,selectedAlphabet);
+        System.out.println("selectAlphabet");
+        if(selectedAlphabet==null){
+            System.out.println("ist null");
+            return;
+        }
+
+        System.out.println("Controller:"+selectedAlphabet);
+        userService.selectAlphabet(userid,Integer.parseInt(selectedAlphabet));
+
+    }
+
+
+
     @GetMapping("/getselectedlanguage/{userid}")
     public String getSelectedLanguage(@PathVariable String userid){
+        System.out.println("getselectedlanguage");
         return userService.getSelectedLanguage(userid);
     }
 
     @GetMapping("/nextelement/{userid}")
     public ElementToTrain nextelement(@PathVariable String userid){
+        System.out.println("nextelement");
         return userService.nextElement(userid);
 
     }
+
+    //@GetMapping("/user/firstElement/{userid}")
+    public ElementToTrain firstElement(@PathVariable String userid){
+        return userService.nextElement(userid);
+    }
+
+    @PutMapping("/user/nextElement/{userid}")
+    public ElementToTrain nextElement(@PathVariable String userid, @RequestBody ElementToTrain trainedElement){
+
+        return userService.saveResultAndGetNextElement(userid,trainedElement);
+    }
+
+    @GetMapping("/user/firstElement/{userid}")
+    public ElementToTrain newFirstElement(@PathVariable String userid){
+        return userService.getFirstElement(userid);
+    }
+
+
+    @GetMapping("/g/{userid}")
+    public List<LetterToSelect> getLettersAlphabet(@PathVariable String userid){
+     List<LetterToSelect> result=userService.getListOfLetters(userid);
+         return userService.getListOfLetters(userid);
+    }
+
 
 
 
@@ -63,6 +111,15 @@ public class UserController {
 
 
     }
+
+    @GetMapping("/getletters/{userid}")
+    public List<LetterToSelect> getLettersFromAlphabet(@PathVariable String userid){
+        System.out.println("getletters");
+        return userService.getListOfLetters(userid);
+    }
+
+
+
     @PutMapping("/selectelement/{userid}")
     public ResponseEntity<SelectedElement> selectElement(@PathVariable String userid
             ,@RequestBody SelectedElement selectedElement){
@@ -92,20 +149,39 @@ public class UserController {
     }
 
     @GetMapping("/user/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginData userLoginData){
+    public ResponseEntity<UserDataAndFirstElement> login(UserLoginData userLoginData){
 
-        String returnValue=userService.userLogin(userLoginData);
+        System.out.println("user/login");
+        System.out.println(userLoginData.mailadress()+"  "+userLoginData.password());
 
-        if(returnValue.equals( "UNKNOWN_USER")|returnValue.equals( "WRONG_PASSWORD"))
+
+
+
+
+        UserLoginBody userLoginBody=userService.userLogin(userLoginData);
+
+        //String userId=userService.userLogin(userLoginData);
+        //System.out.println("<"+userId +">");
+        System.out.println("Controller UserLoginBody:"+userLoginBody.toString());
+
+
+
+
+        if(userLoginBody.getUserId().equals( "UNKNOWN_USER")|userLoginBody.getUserId().equals( "WRONG_PASSWORD"))
         {
+            ElementToTrain elementToTrain=null;
+            UserDataAndFirstElement userDataAndFirstElement=new UserDataAndFirstElement(userLoginBody,elementToTrain);
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
-                    .body(returnValue);
+                    .body(userDataAndFirstElement
+                    );
 
         }
-        return ResponseEntity
+        ElementToTrain elementToTrain=userService.getFirstElement(userLoginBody.getId());
+        UserDataAndFirstElement userDataAndFirstElement=new UserDataAndFirstElement(userLoginBody,elementToTrain);
+         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(returnValue);
+                .body(userDataAndFirstElement);
     }
 
 

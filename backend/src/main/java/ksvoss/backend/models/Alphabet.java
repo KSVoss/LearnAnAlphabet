@@ -33,6 +33,14 @@ public record Alphabet(
 				'}';
 	}
 
+	public Letter findLetterById(int letterId){
+		if(letters.isEmpty())return null;	// throw execption
+		for(int i=0;i<letters.size();i++){
+			if(letters.get(i).id()==letterId)return letters.get(i);
+		}
+		return null;		// throw execption
+	}
+
 	public String name(String preferredLanguage){
 
 		if(names.length==0){

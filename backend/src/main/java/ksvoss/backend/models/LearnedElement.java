@@ -5,11 +5,11 @@ import java.util.Objects;
 public class LearnedElement {
     private int alphabetID;
     private int letterID;
-    private boolean selected;
-    private int timesShowed;
-    private int timesPassed;
+    private boolean selected=false;
+    private int timesShowed=0;
+    private int timesPassed=0;
 
-    private long isPassedLast50TimesAsBooleanArray;
+    private long isPassedLast50TimesAsBooleanArray=0;
 
     @Override
     public String toString() {
@@ -46,6 +46,29 @@ public class LearnedElement {
         return isPassedLast50TimesAsBooleanArray;
     }
 
+    public LearnedElement() {
+    }
+
+    public void setAlphabetID(int alphabetID) {
+        this.alphabetID = alphabetID;
+    }
+
+    public void setLetterID(int letterID) {
+        this.letterID = letterID;
+    }
+
+    public void setTimesShowed(int timesShowed) {
+        this.timesShowed = timesShowed;
+    }
+
+    public void setTimesPassed(int timesPassed) {
+        this.timesPassed = timesPassed;
+    }
+
+    public void setIsPassedLast50TimesAsBooleanArray(long isPassedLast50TimesAsBooleanArray) {
+        this.isPassedLast50TimesAsBooleanArray = isPassedLast50TimesAsBooleanArray;
+    }
+
     public LearnedElement(int alphabetID
             , int letterID
             , boolean selected
@@ -59,6 +82,13 @@ public class LearnedElement {
         this.timesPassed = timesPassed;
         this.isPassedLast50TimesAsBooleanArray = isPassedLast50TimesAsBooleanArray;
     }
+
+    public LearnedElement(int alphabetID, int letterID) {
+        this.alphabetID = alphabetID;
+        this.letterID = letterID;
+
+    }
+
     public void incrementTimesPassed(boolean isPassed){
         this.timesShowed++;
         this.incrementTimesPassedLast50(isPassed);
@@ -90,4 +120,9 @@ public class LearnedElement {
         return this.letterID;
     }
 
+    public boolean isEqual(int alphabetId, int letterId) {
+        if(this.alphabetID!=alphabetId)return false;
+        if(this.letterID!=letterId)return false;
+        return true;
+    }
 }
