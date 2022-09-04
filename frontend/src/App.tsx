@@ -41,7 +41,9 @@ export default function App() {
                     giveSign={hooks.giveSign}
                     userId={hooks.userId}
                     trainingLetter={hooks.trainingLetter}
-                    setTrainingLetter={hooks.trainingLetter}
+                    setTrainingLetter={hooks.setTrainingLetter}
+                    user={hooks.user}
+                    setUser={hooks.setUser}
 
                 />}/>
                 <Route path={"/selectalphabet"} element={<Selectalphabet

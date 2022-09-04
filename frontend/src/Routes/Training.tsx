@@ -6,11 +6,14 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import {ElementToTrain} from "../Models/ElementToTrain";
 import axios from "axios";
+import {User} from "../Models/User";
 
 
     export default function Training(props: {
         signToTrain: Letter;
         giveSign(): any;
+        user:User;
+        setUser:any;
         userId:String;
         trainingLetter:ElementToTrain;
         setTrainingLetter:any
@@ -43,16 +46,37 @@ import axios from "axios";
             //if (inputValue === letterToTrain.spelling) {
             if(inputValue===props.trainingLetter.spelling){
                 answerWasCorrect();
-                axios.put("/wastrained/"+props.userId,'isAnswerCorrect=true');
+                axios.put("/user/nextElement/"+props.user.id ,
+                    {letterAsString:props.trainingLetter.letterAsString
+                        ,spelling:props.trainingLetter.spelling
+                        ,alphabetId:props.trainingLetter.alphabetId
+                        ,letterId:props.trainingLetter.letterId
+                        ,correctAnswer:'true'}
+            ).then((response)=>{
+                    props.setTrainingLetter(response.data)})
+
+
+
+
+
+            //    axios.put("/wastrained/"+props.userId,'isAnswerCorrect=true');
 
             } else {
 
                 //answerWasIncorrect(letterToTrain.letterAsString,letterToTrain.spelling);
                 answerWasIncorrect(props.trainingLetter.letterAsString, props.trainingLetter.spelling);
-                axios.put("/wastrained/"+ props.userId,'isAnswerCorrect=false');
+                //axios.put("/wastrained/"+ props.userId,'isAnswerCorrect=false');
+                axios.put("/user/nextElement/"+props.user.id ,
+                    {letterAsString:props.trainingLetter.letterAsString
+                        ,spelling:props.trainingLetter.spelling
+                        ,alphabetId:props.trainingLetter.alphabetId
+                        ,letterId:props.trainingLetter.letterId
+                        ,correctAnswer:'false'}
+                ).then((response)=>{
+                    props.setTrainingLetter(response.data)})
+
 
             }
-             getNewLetterToTrain();
 
 
         }

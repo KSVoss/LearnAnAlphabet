@@ -73,7 +73,11 @@ public class UserController {
     @PutMapping("/user/nextElement/{userid}")
     public ElementToTrain nextElement(@PathVariable String userid, @RequestBody ElementToTrain trainedElement){
 
-        return userService.saveResultAndGetNextElement(userid,trainedElement);
+        System.out.println("/user/nextuser");
+        System.out.println("trainedElement Input:"+trainedElement.toString());
+        ElementToTrain response=userService.saveResultAndGetNextElement(userid,trainedElement);
+        System.out.println("trainedElement Output"+response.toString());
+        return response;
     }
 
     @GetMapping("/user/firstElement/{userid}")
