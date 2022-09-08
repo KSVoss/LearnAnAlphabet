@@ -1,5 +1,6 @@
 package ksvoss.backend.user;
 
+import ksvoss.backend.alphabet.AlphabetRepository;
 import ksvoss.backend.models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,8 @@ import static org.mockito.Mockito.when;
 
 class UserServiceTest {
     private final UserRepository userRepository = mock(UserRepository.class);
-    private final UserService userService = new UserService(userRepository);
+    private final AlphabetRepository alphabetRepository = mock(AlphabetRepository.class);
+    private final UserService userService = new UserService(userRepository,alphabetRepository);
 
     @Test
     void addUserTestPass() {

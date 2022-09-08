@@ -10,11 +10,5 @@ public record ElementToTrain (
 
 
 {
-    public ElementToTrain {
-    }
-
-    public ElementToTrain(Letter letter,int alphabetId,int letterId,boolean correctAnswer){
-        this(letter.signAsText(), letter.spelling(), alphabetId,letterId, correctAnswer);
-    }
 
 }

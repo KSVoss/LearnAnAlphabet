@@ -56,7 +56,7 @@ export default function App() {
                     setSelectedAlphabet={hooks.setSelectedAlphabet}
                     user={hooks.user}
                     setUser={hooks.setUser}
-                    setTrainingLetter={hooks.trainingLetter}/>}/>
+                    setTrainingLetter={hooks.setTrainingLetter}/>}/>
                 <Route path={"/forgotpassword"} element={<Forgotpassword/>}/>
                 <Route path={"/changeuserdata"} element={<Changeuserdata/>}/>
             </Routes>

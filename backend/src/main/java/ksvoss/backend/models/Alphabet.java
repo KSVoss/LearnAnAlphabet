@@ -1,5 +1,8 @@
 package ksvoss.backend.models;
 
+import ksvoss.backend.user.CombinationLetterInAnAlphabetException;
+import ksvoss.backend.user.EmptyAlphabetDatabaseException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -34,22 +37,21 @@ public record Alphabet(
 	}
 
 	public Letter findLetterById(int letterId){
-		if(letters.isEmpty())return null;	// throw execption
-		for(int i=0;i<letters.size();i++){
-			if(letters.get(i).id()==letterId)return letters.get(i);
+		if(letters.isEmpty())throw new EmptyAlphabetDatabaseException();
+		for (Letter letter : letters) {
+			if (letter.id() == letterId) return letter;
 		}
-		return null;		// throw execption
-	}
+		throw new CombinationLetterInAnAlphabetException(this.id,letterId);
+ 	}
 
 	public String name(String preferredLanguage){
 
-		if(names.length==0){
+		if(names.length==1){
 			return names[0].name();
 		}
- 		for(int i=0;i< names.length;i++){
-			 System.out.println("i:"+i+" Language:"+names[i].language());
-			if(names[i].language().equals(preferredLanguage))return names[i].name();
- 		}
+		for (AlphabetNameInDifferentLanguage name : names) {
+			if (name.language().equals(preferredLanguage)) return name.name();
+		}
 		return names[0].name();
 	}
 }

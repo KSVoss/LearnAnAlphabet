@@ -50,34 +50,20 @@ export default function Userlogin(
                     password: inputPassword
                 }
             });
-             //setUserIdJSON(request.data);
+
             props.setUser(request.data.userLoginBody);
             props.setTrainingLetter(request.data.elementToTrain);
-            console.log("data.user:"+request.data.userLoginBody);
-            console.log("nickname:"+request.data.userLoginBody.nickname);
-            console.log("id:"+request.data.userLoginBody.id);
-            console.log("selectedAlphabet:"+request.data.userLoginBody.selectedAlphabet);
-            console.log("weightedRandomize:"+request.data.userLoginBody.weightedRandomize);
-            console.log("letterAsString:"+request.data.elementToTrain.letterAsString);
-            console.log("spelling:"+request.data.elementToTrain.spelling);
-            console.log("alphabetId:"+request.data.elementToTrain.alphabetId);
-            console.log("letterId:"+request.data.elementToTrain.correctAnswer);
+
 
 
 
             navigate("/training");
 
-            //console.log("In login userId:"+request.data.userId);
-            //props.setUserId(request.data.userId);
-            //console.log("userid:" + props.userId);
-            //props.setSelectedAlphabet(request.data.userId);
-            //navigate("/training");
-
 
 
 
         }catch (error){
-            setInputPassword("");
+             setInputPassword("");
             setInputMailadress("");
             toast.error(<>
                 Die Kombination aus<br/>Passwort und Mailadresse<br/>ist unbekannt

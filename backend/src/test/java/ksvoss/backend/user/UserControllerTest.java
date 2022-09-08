@@ -14,7 +14,7 @@ class UserControllerTest {
 
     private final UserService testUserService = mock(UserService.class);
     private final UserController testUserController = new UserController(testUserService);
-@Test
+/*@Test
     void addUserTestPass(){
     // given
         NewUser addedUser=new NewUser("a@b.com","Anton","wird nicht verraten");
@@ -44,6 +44,6 @@ class UserControllerTest {
         // then
         Assertions.assertEquals(HttpStatus.CONFLICT,actual.getStatusCode());
 
-    }
+    }*/
 
 }
