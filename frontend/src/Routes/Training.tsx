@@ -101,13 +101,11 @@ import {User} from "../Models/User";
 
         return (
             <>
-                 <button onClick={()=> showUserId()}>Show UserId</button>
 
                 <button onClick={() => navigate("/changeuserdata")}>User</button>
                 <button onClick={() => navigate("/selectalphabet")}>Alphabet</button>
                  <h2>Alphabet üben</h2>
                 Element to Train {props.trainingLetter.letterAsString}
-                 <p>UserId in Traing:{props.userId}</p>
 
 
 

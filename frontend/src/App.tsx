@@ -35,7 +35,11 @@ export default function App() {
                     trainingLetter={hooks.trainingLetter}
                     setTrainingLetter={hooks.setTrainingLetter}
                 />}/>
-                <Route path={"/newuser"} element={<Newuser/>}/>
+                <Route path={"/newuser"} element={<Newuser
+                    user={hooks.user}
+                    setUser={hooks.setUser}
+
+                />}/>
                 <Route path={"/training"} element={<Training
                     signToTrain={hooks.signToTrain}
                     giveSign={hooks.giveSign}
@@ -49,7 +53,10 @@ export default function App() {
                 <Route path={"/selectalphabet"} element={<Selectalphabet
                     userId={hooks.userId}
                     selectedAlphabet={hooks.selectedAlphabet}
-                    setSelectedAlphabet={hooks.setSelectedAlphabet}/>}/>
+                    setSelectedAlphabet={hooks.setSelectedAlphabet}
+                    user={hooks.user}
+                    setUser={hooks.setUser}
+                    setTrainingLetter={hooks.trainingLetter}/>}/>
                 <Route path={"/forgotpassword"} element={<Forgotpassword/>}/>
                 <Route path={"/changeuserdata"} element={<Changeuserdata/>}/>
             </Routes>

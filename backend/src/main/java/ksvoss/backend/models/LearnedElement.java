@@ -125,4 +125,8 @@ public class LearnedElement {
         if(this.letterID!=letterId)return false;
         return true;
     }
+
+    public void changeSelected() {
+        selected=!selected;
+    }
 }

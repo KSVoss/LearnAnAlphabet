@@ -29,6 +29,8 @@ public class User {
         this.nickname = nickname;
         this.passwordHashed = passwordHashed;
         this.id= UUID.randomUUID().toString();
+        this.learnedElements=new ArrayList<>();
+        this.selectedAlphabetId=0;
         this.preferedLanguage="deutsch";
     }
     public User(NewUser newUser){
@@ -36,7 +38,8 @@ public class User {
         this.nickname=newUser.nickname();
         this.passwordHashed=newUser.password();
         this.id=UUID.randomUUID().toString();
-        this.selectedAlphabetId=1;
+        this.learnedElements=new ArrayList<>();
+        this.selectedAlphabetId=0;
         this.preferedLanguage="deutsch";
         this.lastOne=new LearnedElement(-1,-1,true,0,0,0);
     }
@@ -316,14 +319,14 @@ public class User {
 
         public void saveAnswer(boolean isAnswerCorrect,int alphabetId,int letterId) {
 
-        if(lastOne.getAlphabetID()!=alphabetId|lastOne.getLetterID()!=letterId){
+       /* if(lastOne.getAlphabetID()!=alphabetId|lastOne.getLetterID()!=letterId){
             System.out.println("last ist nicht gleich actual"); // throw exception
             return;
-        }
+        }*/
 
         for(int i=0;i<learnedElements.size();i++)
         {
-            if(learnedElements.get(i).equals(lastOne))learnedElements.get(i).incrementTimesPassed(isAnswerCorrect);
+            if((learnedElements.get(i).getLetterID()==letterId)&(learnedElements.get(i).getAlphabetID()==alphabetId))learnedElements.get(i).incrementTimesPassed(isAnswerCorrect);
             System.out.println("alph:"+learnedElements.get(i).getAlphabetID()
                     +" let:"+learnedElements.get(i).getLetterID()
                     +" sel:"+learnedElements.get(i).isSelected()
@@ -352,4 +355,31 @@ public class User {
 
 
     }
+
+    public void selectElementNew(SelectedElement selectedElement) {
+        // Liste leer oder null
+        if(learnedElements==null){
+            learnedElements=new ArrayList<>();
+        }
+        if(learnedElements.isEmpty()){
+            learnedElements.add(
+                    new LearnedElement(selectedElement.alphabetId(),selectedElement.letterId(),true,0,0,0));
+            return;
+        }
+
+        // Element suchen
+        for(int i=0;i<learnedElements.size();i++) {
+            if (learnedElements.get(i).getAlphabetID() == selectedElement.alphabetId()
+                    & learnedElements.get(i).getLetterID() == selectedElement.letterId()) {
+                //learnedElements.get(i).setSelected(selectedElement.selected());
+                learnedElements.get(i).changeSelected();
+                return;
+            }
+        }
+            learnedElements.add(
+                    new LearnedElement(selectedElement.alphabetId(),selectedElement.letterId(),selectedElement.selected(),0,0,0));
+
+
+
+     }
 }

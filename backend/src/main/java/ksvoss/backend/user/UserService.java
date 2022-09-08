@@ -59,7 +59,10 @@ public class UserService {
 
     }
     public User addUser(NewUser userToAdd){
-         if(userRepository.existsUserByMailadress(userToAdd.mailadress()))return null;
+         if(userRepository.existsUserByMailadress(userToAdd.mailadress())){
+
+             return null;
+         }
          if(userRepository.existsUserByNickname(userToAdd.nickname()))return null;
          User newUser=new User(userToAdd);
          userRepository.save(newUser);
@@ -224,7 +227,8 @@ public class UserService {
 
     public ElementToTrain saveResultAndGetNextElement(String userid, ElementToTrain trainedElement) {
         User user=getUser(userid);
-        user.saveAnswer(trainedElement.correctAnswer(),trainedElement.alphabetId(),trainedElement.letterId());
+        if(trainedElement.alphabetId()>-1)
+            user.saveAnswer(trainedElement.correctAnswer(),trainedElement.alphabetId(),trainedElement.letterId());
 
 
 
@@ -247,5 +251,25 @@ public class UserService {
         ElementToTrain nextElement=learnedElementToElementToTrain(randomElement);
 
         return nextElement;
+    }
+
+    public List<LetterToSelect> getListOfLettersNew(String userid, int selectedAlphabet) {
+        User user=getUser(userid);
+        user.setSelectedAlphabetId(selectedAlphabet);
+        System.out.println("Nach Service"+user.getSelectedAlphabetId());
+
+
+        saveUser(user);
+        return this.getListOfLetters(userid);
+
+    }
+
+    public List<LetterToSelect> selectElementNew(SelectedElement selectedElement, String userid) {
+        User user=getUser(userid);      // Zeile 51
+        user.selectElementNew(selectedElement);
+
+
+        saveUser(user);     // Zeile 57
+        return getListOfLettersNew(userid,user.getSelectedAlphabetId());
     }
 }

@@ -5,6 +5,8 @@ import Letter from "./Models/Letter";
 import {UserLogin} from "./Models/UserLogin";
 import {User} from "./Models/User";
 import {ElementToTrain} from "./Models/ElementToTrain";
+import Newuser from "./Routes/Newuser";
+import {NewUser} from "./Models/NewUser";
 
 export default function useHooks(){
     const [alphabets,setAlphabets]=useState<Alphabet[]>([]);
@@ -19,12 +21,15 @@ export default function useHooks(){
     const [trainingLetter,setTrainingLetter]=useState<ElementToTrain>(
         {letterAsString:"",spelling:"",alphabetId:-1,letterId:-1,correctAnswer:false})
 
+    const [newUser,SetNewUser]=useState<NewUser>();
 
     const fetchAlphabets = () => {
         axios.get("/getallalphabets")
             .then((response) => response.data)
             .then((data) => setAlphabets(data))
     }
+
+
 
     const giveSign=()=> {
         setSignToTrain(alphabets[0].letters[17])

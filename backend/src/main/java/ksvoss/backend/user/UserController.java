@@ -36,7 +36,7 @@ public class UserController {
         userService.selectLanguage(userid, alphabetId);
     }
 
-    @PutMapping("/selectAlphabet/{userid}")
+  /*  @PutMapping("/selectAlphabet/{userid}")
     public void selectAlphabet(@PathVariable String userid, String selectedAlphabet){
         // userService.selectAlphabet(userid,selectedAlphabet);
         System.out.println("selectAlphabet");
@@ -48,7 +48,25 @@ public class UserController {
         System.out.println("Controller:"+selectedAlphabet);
         userService.selectAlphabet(userid,Integer.parseInt(selectedAlphabet));
 
+    }*/
+
+    @PutMapping("/selectAlphabet/{userid}")
+    public List<LetterToSelect> selectAlphabet(@PathVariable String userid, String selectedAlphabet){
+        // userService.selectAlphabet(userid,selectedAlphabet);
+        System.out.println("selectAlphabet");
+        if(selectedAlphabet==null){
+            System.out.println("ist null");
+            return  null;
+
+        }
+
+        System.out.println("Controller:"+selectedAlphabet);
+        userService.selectAlphabet(userid,Integer.parseInt(selectedAlphabet));
+        return userService.getListOfLettersNew(userid,Integer.parseInt(selectedAlphabet));
+
     }
+
+
 
 
 
@@ -95,9 +113,12 @@ public class UserController {
 
 
 
-    @PostMapping("/newuser")
+
+    @PostMapping("/user/newuser")
     public ResponseEntity<User> addUser(@RequestBody NewUser userToAdd){
+        System.out.println(userToAdd);
         User newUser=userService.addUser(userToAdd);
+        System.out.println(newUser);
          if(newUser!=null)
             return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -124,6 +145,12 @@ public class UserController {
 
 
 
+    @PutMapping("/user/selectElement/{userid}")
+    public List<LetterToSelect> selectElementNew(@PathVariable String userid,@RequestBody SelectedElement selectedElement){
+        System.out.println(selectedElement);
+        return userService.selectElementNew(selectedElement,userid);
+
+    }
     @PutMapping("/selectelement/{userid}")
     public ResponseEntity<SelectedElement> selectElement(@PathVariable String userid
             ,@RequestBody SelectedElement selectedElement){
