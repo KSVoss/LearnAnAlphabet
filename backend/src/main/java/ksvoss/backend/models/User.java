@@ -10,17 +10,21 @@ import org.springframework.data.annotation.Id;
 
 public class User {
 
+
     @Id
     private String id;
-    private final String mailadress;        // brauche ich beim Login, Zugriff über Repo
-    private final String nickname;
-    private final String passwordHashed;
-    private final String preferredLanguage;
-    private final boolean weightedRadomize=false;
+    private String mailadress="";        // brauche ich beim Login, Zugriff über Repo
+    private String nickname="";
+    private String passwordHashed="";
+    private String preferredLanguage="";
+    private boolean weightedRadomize=false;
     private int selectedAlphabetId;
     private ArrayList <LearnedElement>   learnedElements;
 
     static Random random=new Random();
+    public User() {
+    }
+
     public User(String mailadress, String nickname, String passwordHashed) {
         this.mailadress = mailadress;
         this.nickname = nickname;
@@ -45,8 +49,41 @@ public class User {
     }
 
 
+    public String getMailadress() {
+        return mailadress;
+    }
 
+    public void setMailadress(String mailadress) {
+        this.mailadress = mailadress;
+    }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPasswordHashed() {
+        return passwordHashed;
+    }
+
+    public void setPasswordHashed(String passwordHashed) {
+        this.passwordHashed = passwordHashed;
+    }
+
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
+    }
+
+    public void setLearnedElements(ArrayList<LearnedElement> learnedElements) {
+        this.learnedElements = learnedElements;
+    }
+
+    public static Random getRandom() {
+        return random;
+    }
+
+    public static void setRandom(Random random) {
+        User.random = random;
+    }
 
     public void setSelectedAlphabetId(int selectedAlphabetId){
         this.selectedAlphabetId=selectedAlphabetId;
