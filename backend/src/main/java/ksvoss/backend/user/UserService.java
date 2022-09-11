@@ -14,36 +14,38 @@ public class UserService {
     private final UserRepository userRepository;
     private final AlphabetRepository alphabetRepository;
 
-    public UserService(UserRepository userRepository,AlphabetRepository alphabetRepository) {
+    public UserService(UserRepository userRepository, AlphabetRepository alphabetRepository) {
         this.userRepository = userRepository;
-        this.alphabetRepository=alphabetRepository;
+        this.alphabetRepository = alphabetRepository;
     }
-
 
 
     public UserLoginBody userLogin(UserLoginData userLoginData) {
         Optional<User> userOptional;
 
         userOptional = userRepository.findUserByMailadress(userLoginData.mailadress());
-        if(userOptional.isEmpty()) throw new UserNotFoundException();
+        if (userOptional.isEmpty()) throw new UserNotFoundException();
 
         if (userOptional.get().isPasswordCorrect(userLoginData.password())) {
             return new UserLoginBody(
-                        userOptional.get().getId()
-                        , userOptional.get().getSelectedAlphabetId()
-                        , userOptional.get().getNickname()
-                        , userOptional.get().isWeightedRadomize());
-            }
+                    userOptional.get().getId()
+                    , userOptional.get().getSelectedAlphabetId()
+                    , userOptional.get().getNickname()
+                    , userOptional.get().isWeightedRadomize());
+        }
         throw new UserNotFoundException();
     }
-    private User loadUser(String userid) {
+
+    public User loadUser(String userid) {
         Optional<User> user = userRepository.findById(userid);
         if (user.isEmpty()) throw new UserByIdNotFoundExeption();
         return user.get();
     }
-    private void saveUser(User user) {
+
+    public void saveUser(User user) {
         userRepository.save(user);
     }
+
     public User addUser(NewUser userToAdd) {
         if (userRepository.existsUserByMailadress(userToAdd.mailadress()))
             throw new DoubleRegistrationException();
@@ -51,9 +53,10 @@ public class UserService {
         userRepository.save(newUser);
         return newUser;
     }
+
     public NameOfAlphabetsAndSelectedAlphabet getNamesOfAlphabet(String userId) {
         List<NameOfAlphabet> nameOfAlphabetList = new ArrayList<>();
-        User user=loadUser(userId);
+        User user = loadUser(userId);
         String preferredLanguage = user.getPreferredLanguage();
         List<Alphabet> alphabets = alphabetRepository.findAll();
         if (alphabets.isEmpty()) throw new EmptyAlphabetDatabaseException();
@@ -64,33 +67,13 @@ public class UserService {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    public void selectLanguage(String userid, int alphabetId) {
-        User user=loadUser(userid);
-        user.setSelectedAlphabetId(alphabetId);
-        userRepository.save(user);
-    }
-
-
-
-
-
     public List<LetterToSelect> getListOfLetters(String userId) {
         List<LetterToSelect> letterToSelectList;
         User user = loadUser(userId);
         int selectedAlphabet = user.getSelectedAlphabetId();
         Optional<Alphabet> alphabet = alphabetRepository.findById(selectedAlphabet);
         if (alphabet.isEmpty())
-            throw new SpecifiedAlphabetNotExistsException("Alphabet with ID="+selectedAlphabet+" does not exists");
+            throw new SpecifiedAlphabetNotExistsException("Alphabet with ID=" + selectedAlphabet + " does not exists");
         LetterToSelect[] lettersToSelect = new LetterToSelect[alphabet.get().letters().size()];
         for (Letter letter : alphabet.get().letters()
         ) {
@@ -111,13 +94,13 @@ public class UserService {
         saveUser(user);
     }
 
-    private Alphabet findAlphabetById(int id) {
+    public Alphabet findAlphabetById(int id) {
         Optional<Alphabet> alphabet = alphabetRepository.findById(id);
         if (alphabet.isEmpty()) throw new SelectedAlphabetIsNullException(id);  // throw exception
         return alphabet.get();
     }
 
-    private ElementToTrain learnedElementToElementToTrain(LearnedElement learnedElement) {
+    public ElementToTrain learnedElementToElementToTrain(LearnedElement learnedElement) {
         String letterAsString;
         String spelling;
         int alphabetId;
@@ -165,88 +148,4 @@ public class UserService {
         saveUser(user);
         return getListOfLettersNew(userid, user.getSelectedAlphabetId());
     }
-
-//------------------------------- unnütz
-/*
-    public void wasTrained(String userid, boolean isAnswerCorrect) {
-        User user = loadUser(userid);
-
-        user.saveAnswer(isAnswerCorrect, 0, 0);
-        saveUser(user);
-
-    }
-
-   public ElementToTrain nextElement(String userid) {
-        Optional<User> user = userRepository.findById(userid);
-        if (user.isEmpty()) return null;   // durch exception ersetzen
-        LearnedElement learnedElement = user.get().getRandomElement();
-        userRepository.save(user.get());
-        Optional<Alphabet> alphabet = alphabetRepository.findById(learnedElement.getAlphabetID());
-        if (alphabet.isEmpty()) return null;   // durch exception ersetzen
-        Letter letter = alphabet.get().letters().get(learnedElement.getLetterID());
-        return new ElementToTrain(letter, learnedElement.getAlphabetID(), learnedElement.getLetterID(), true);
-    }
-    public LearnedElement getRandomElement(String userid) {
-        Optional<User> user = userRepository.findById(userid);
-        if (!user.isPresent()) return null;   // durch exeption ersetzen
-        return user.get().getRandomElement();
-
-    }
-
-    public String getSelectedLanguage(String userid) {
-        Optional<User> user = userRepository.findById(userid);
-        if (user.isEmpty()) return "";    // durch exception ersetzen
-        Optional<Alphabet> alphabet = alphabetRepository.findById(user.get().getSelectedAlphabetId());
-        if (alphabet.isEmpty()) return "";    // durch exception ersetzen
-        return alphabet.get().name(user.get().getPreferedLanguage());
-
-    }
-   public boolean trainElement(TrainedElement trainedElement, String userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-
-        User user;
-        if (userOptional.isPresent())
-            user = userOptional.get();
-        else user = null;        // ersetzen durch throw Exeption
-
-        user.trainElement(trainedElement);
-        userRepository.save(user);
-
-
-        return true;
-    }
-    public void testRepo() {
-        Optional<Alphabet> alphabet = alphabetRepository.findById(0);
-        if (!alphabet.isPresent()) {
-            System.out.println("geht nicht");
-            return;
-        }
-        System.out.println(alphabet.get().letters().get(1));
-    }
-
-    public User userLogin(UserLoginData userLoginData, int i) {
-        Optional<User> userOptional;
-
-        userOptional = userRepository.findUserByMailadress(userLoginData.mailadress());
-        if (userOptional.isPresent()) {
-            return userOptional.get();
-        }
-        return null;
-
-    }
-        public boolean selectElement(SelectedElement selectedElement, String userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-
-        User user;
-        if (userOptional.isPresent())
-            user = userOptional.get();
-        else user = null;        // ersetzen durch throw Exeption
-
-        boolean response = user.selectElement(selectedElement);
-        userRepository.save(user);
-        return response;
-
-    }
-    */
-
 }

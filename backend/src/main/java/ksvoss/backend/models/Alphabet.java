@@ -45,6 +45,8 @@ public record Alphabet(
  	}
 
 	public String name(String preferredLanguage){
+		if(names==null)return "No_Name";
+		if(names.length==0)return "No_Name";
 
 		if(names.length==1){
 			return names[0].name();

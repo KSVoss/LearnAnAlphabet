@@ -20,8 +20,7 @@ class UserIntegrationTest {
     @Autowired
     MockMvc mockMvc;
 
-//public record  NewUser(String mailadress,  String nickname, String password) {
-@DirtiesContext
+ @DirtiesContext
 @Test
     void addUserTestPassed() throws Exception {
         MvcResult result = mockMvc.perform(post("/newuser")
@@ -30,7 +29,7 @@ class UserIntegrationTest {
                                 {
                                 "mailadress":"F@b.com ",
                                 "nickname":"Fnna",
-                                "passowrd":"geheim"
+                                "passoword":"geheim"
                                 }
                                 """)
                 )

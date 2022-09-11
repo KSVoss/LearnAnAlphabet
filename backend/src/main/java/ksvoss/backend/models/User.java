@@ -19,7 +19,7 @@ public class User {
     private String preferredLanguage="";
     private boolean weightedRadomize=false;
     private int selectedAlphabetId;
-    private ArrayList <LearnedElement>   learnedElements;
+    private List <LearnedElement>   learnedElements;
 
     static Random random=new Random();
     public User() {
@@ -73,7 +73,7 @@ public class User {
         this.preferredLanguage = preferredLanguage;
     }
 
-    public void setLearnedElements(ArrayList<LearnedElement> learnedElements) {
+    public void setLearnedElements(List<LearnedElement> learnedElements) {
         this.learnedElements = learnedElements;
     }
 
@@ -93,6 +93,7 @@ public class User {
     }
 
     public boolean isPasswordCorrect(String password){
+        // return BCrypt.checkps(password,this.passwordHashed);
         return this.passwordHashed.equals(password);       // Hash muss noch eingebaut werden
     }
 
@@ -129,8 +130,10 @@ public class User {
 
 
 
+    public LearnedElement getRandomElement2(ElementToTrain trainedElement) {
 
-    public LearnedElement getRandomElement2(int alphabetIdOfLast,int letterIdOfLast ){
+        int alphabetIdOfLast=trainedElement.alphabetId();
+        int letterIdOfLast= trainedElement.letterId();
 
         if(learnedElements.isEmpty())
             throw new TooFewLettersSelectedException();
@@ -181,12 +184,11 @@ public class User {
     }
 
 
-    public LearnedElement getRandomElement2(ElementToTrain trainedElement) {
-         return getRandomElement2(trainedElement.alphabetId(),trainedElement.letterId());
 
 
 
-    }
+
+
 
     public void selectElementNew(SelectedElement selectedElement) {
          if(learnedElements==null){

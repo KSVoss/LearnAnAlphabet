@@ -24,7 +24,7 @@ export default function Newuser(
             toast.error("Die Beiden Passwörter müssen übereinstimmen");
             return;
         }
-        if (inputPassword == "") {
+        if (inputPassword === "") {
             toast.error(<>Passwort entspricht nicht den Vorgaben</>,
                 {position: toast.POSITION.TOP_CENTER});
             return;
@@ -40,7 +40,6 @@ export default function Newuser(
                         nickname: inputNickname,
                         password: inputPassword
 
-//public record  NewUser(String mailadress,  String nickname, String password) {
 
                 });
             props.setUser(request.data);
@@ -54,8 +53,7 @@ export default function Newuser(
 
                 </>, {position: toast.POSITION.TOP_CENTER}
             );
-            console.log(error);
-        }
+         }
     }
 
 

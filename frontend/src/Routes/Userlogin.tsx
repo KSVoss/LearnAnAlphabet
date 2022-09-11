@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import {ChangeEvent, FormEvent, useState} from "react";
-import {UserLogin} from "../Models/UserLogin";
 import axios from "axios";
-import {ResponseDataStringAsJSON} from "../Models/ResponseDataStringAsJSON";
-import Letter from "../Models/Letter";
 import {toast, ToastContainer} from "react-toastify";
 import {User} from "../Models/User";
 import {ElementToTrain} from "../Models/ElementToTrain";
+import './Userlogin.css'
+
 
 export default function Userlogin(
-    props: { userId: String;
+    props: { userId: string;
             setUserId:any;
             setSelectedAlphabet:any;
             user:User;
@@ -20,8 +19,7 @@ export default function Userlogin(
     const navigate = useNavigate();
     const [inputMailadress,setInputMailadress]=useState<string>("");
     const [inputPassword,setInputPassword]=useState<string>("");
-    const [userIdJASON,setUserIdJSON]=useState<ResponseDataStringAsJSON>();
-    const onMailadressChange  = (event: ChangeEvent<HTMLInputElement>) => {
+     const onMailadressChange  = (event: ChangeEvent<HTMLInputElement>) => {
         setInputMailadress(event.target.value)
     }
     const onPasswordChange   = (event: ChangeEvent<HTMLInputElement>) => {
@@ -84,12 +82,14 @@ export default function Userlogin(
 
             <h2>Login</h2>
             <form onSubmit={onLoginSubmit}>
-                <label>Mailadress<input type="text" onChange={onMailadressChange} value={inputMailadress}/></label>
-                <label>Password <input type="text" onChange={onPasswordChange} value={inputPassword}/></label>
-                <button>login</button>
+                <label><p className="inputnames">Mailadress</p> <input type="text" onChange={onMailadressChange} value={inputMailadress}/></label>
+                <label><p className="inputnames">Password </p> <input type="password" onChange={onPasswordChange} value={inputPassword}/></label>
+                <br/><button>login</button>
             </form>
-            <button onClick={()=>navigate("/newuser")}>anlegen</button>
-            <button onClick={()=>navigate("/forgotpassword")}>Password vergessen</button>
+            <br/>
+            <button id="createButton" onClick={()=>navigate("/newuser")}>anlegen</button>
+            <button id="forgotButton" onClick={()=>navigate("/forgotpassword")}>Password vergessen</button>
+
             <ToastContainer/>
         </>
     )

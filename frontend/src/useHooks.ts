@@ -2,11 +2,8 @@ import {useEffect, useState} from "react";
 import Alphabet from "./Models/Alphabet";
 import axios from "axios";
 import Letter from "./Models/Letter";
-import {UserLogin} from "./Models/UserLogin";
-import {User} from "./Models/User";
+ import {User} from "./Models/User";
 import {ElementToTrain} from "./Models/ElementToTrain";
-import Newuser from "./Routes/Newuser";
-import {NewUser} from "./Models/NewUser";
 
 export default function useHooks(){
     const [alphabets,setAlphabets]=useState<Alphabet[]>([]);
@@ -14,6 +11,7 @@ export default function useHooks(){
 
     const defaultLetter:Letter={id:"0",signAsText:"undefined",spelling:""}
     const [selectedAlphabet,setSelectedAlphabet]=useState(0);
+    const [nameOfSelectedAlphabet, setNameOfSelectedAlphabet]=useState<string>("");
 
     const [signToTrain,setSignToTrain]=useState<Letter>(defaultLetter); //um undefined zu vermeiden
 
@@ -21,7 +19,6 @@ export default function useHooks(){
     const [trainingLetter,setTrainingLetter]=useState<ElementToTrain>(
         {letterAsString:"",spelling:"",alphabetId:-1,letterId:-1,correctAnswer:false})
 
-    const [newUser,SetNewUser]=useState<NewUser>();
 
     const fetchAlphabets = () => {
         axios.get("/getallalphabets")
@@ -43,5 +40,5 @@ export default function useHooks(){
         ()=>fetchAlphabets(),
         []);
 
-return{alphabets,giveSign,signToTrain,userId,setUserId,selectedAlphabet,setSelectedAlphabet,user,setUser,trainingLetter,setTrainingLetter}
+return{nameOfSelectedAlphabet,setNameOfSelectedAlphabet, alphabets,giveSign,signToTrain,userId,setUserId,selectedAlphabet,setSelectedAlphabet,user,setUser,trainingLetter,setTrainingLetter}
 }

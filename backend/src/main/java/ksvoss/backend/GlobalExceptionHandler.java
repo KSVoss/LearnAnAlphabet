@@ -1,7 +1,6 @@
 package ksvoss.backend;
 
-import ksvoss.backend.models.User;
-import ksvoss.backend.models.UserDataAndFirstElement;
+
 import ksvoss.backend.user.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,8 @@ import java.util.Map;
 @ControllerAdvice
 
 public class GlobalExceptionHandler {
+
+
     @ExceptionHandler(value = CombinationLetterInAnAlphabetException.class)
     public ResponseEntity handleCombinationLetterInAnAlphabetException(CombinationLetterInAnAlphabetException exception){
         Map<String, Object> responseBody=new LinkedHashMap<>();
