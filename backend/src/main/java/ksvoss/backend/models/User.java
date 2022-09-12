@@ -1,5 +1,6 @@
 package ksvoss.backend.models;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 import ksvoss.backend.user.NewUser;
@@ -20,9 +21,9 @@ public class User {
     private boolean weightedRadomize=false;
     private int selectedAlphabetId;
     private List <LearnedElement>   learnedElements;
+    static SecureRandom random = new SecureRandom();
 
-    static Random random=new Random();
-    public User() {
+     public User() {
     }
 
     public User(String mailadress, String nickname, String passwordHashed) {
@@ -81,7 +82,7 @@ public class User {
         return random;
     }
 
-    public static void setRandom(Random random) {
+    public static void setRandom(SecureRandom  random) {
         User.random = random;
     }
 
