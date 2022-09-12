@@ -105,7 +105,7 @@ class AlphabetTest {
         String actual=alphabet.toString();
 
         // then
-        Assertions.assertEquals(     "Alphabet{id=5, names=[AlphabetNameInDifferentLanguage[name=deutsch, Language=alt-griechisch]], letters=[Letter{id=5, signAsText='X', signAsPicture=null, spelling='ix'}, Letter{id=6, signAsText='Y', signAsPicture=null, spelling='ypsilon'}]}",actual);
+        Assertions.assertEquals("Alphabet{id=5, names=[AlphabetNameInDifferentLanguage[name=deutsch, language=alt-griechisch]], letters=[Letter{id=5, signAsText='X', signAsPicture=null, spelling='ix'}, Letter{id=6, signAsText='Y', signAsPicture=null, spelling='ypsilon'}]}",actual);
 
     }
     @Test

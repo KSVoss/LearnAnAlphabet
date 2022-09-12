@@ -23,7 +23,7 @@ class UserIntegrationTest {
  @DirtiesContext
 @Test
     void addUserTestPassed() throws Exception {
-        MvcResult result = mockMvc.perform(post("/newuser")
+        MvcResult result = mockMvc.perform(post("/user/newuser")
                         .contentType(APPLICATION_JSON)
                         .content("""
                                 {
@@ -33,7 +33,7 @@ class UserIntegrationTest {
                                 }
                                 """)
                 )
-                .andExpect(status().is(201))
+                .andExpect(status().is(200))
                 .andReturn();
         String content = result.getResponse().getContentAsString();
         Assertions.assertTrue(content.contains("Fnna"));
