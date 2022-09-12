@@ -3,18 +3,12 @@
     color:indianred;
 }
 #createButton{
-    position:relative;
-    bottom:20%;
     position: absolute;
+    left: 30px;
 
-
-     left:30px ;
 }
 #forgotButton{
-    position:relative;
-    bottom:20%;
+    position:absolute;
+    right:30px;
 
-
-    position: absolute;
-     right:30px ;
- }
+}

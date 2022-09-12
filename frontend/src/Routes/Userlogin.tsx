@@ -79,7 +79,8 @@ export default function Userlogin(
 
     return(
         <>
-
+            <button id="createButton" onClick={()=>navigate("/newuser")}>anlegen</button>
+            <button id="forgotButton" onClick={()=>navigate("/forgotpassword")}>Password vergessen</button><br/>
             <h2>Login</h2>
             <form onSubmit={onLoginSubmit}>
                 <label><p className="inputnames">Mailadress</p> <input type="text" onChange={onMailadressChange} value={inputMailadress}/></label>
@@ -87,8 +88,6 @@ export default function Userlogin(
                 <br/><button>login</button>
             </form>
             <br/>
-            <button id="createButton" onClick={()=>navigate("/newuser")}>anlegen</button>
-            <button id="forgotButton" onClick={()=>navigate("/forgotpassword")}>Password vergessen</button>
 
             <ToastContainer/>
         </>
