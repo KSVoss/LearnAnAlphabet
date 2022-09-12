@@ -20,8 +20,7 @@ public class AlphabetService {
 
     public List<NameOfAlphabet> getNamesOfAlphabet(String preferredlanguage) {
         List<NameOfAlphabet> nameOfAlphabetList=new ArrayList<>();
-        System.out.println("Service:"+preferredlanguage);
-
+ 
         List<Alphabet>  alphabets=alphabetRepository.findAll();
         if(alphabets.isEmpty())return nameOfAlphabetList;
         for(int i=0;i<alphabets.size();i++)

@@ -1,7 +1,7 @@
 package ksvoss.backend;
 
 
-import ksvoss.backend.user.*;
+import ksvoss.backend.exeptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         responseBody.put("description","alphabet or combination alphabet and letter does not exist");
         return new ResponseEntity<>(responseBody,HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler(value  =EmptyAlphabetDatabaseException.class)
+    @ExceptionHandler(value  = EmptyAlphabetDatabaseException.class)
     public ResponseEntity handleEmptyAlphabetDatabaseException(EmptyAlphabetDatabaseException exception){
         Map<String, Object> responseBody=new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());

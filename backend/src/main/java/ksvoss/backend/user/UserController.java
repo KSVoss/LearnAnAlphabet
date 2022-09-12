@@ -1,5 +1,6 @@
 package ksvoss.backend.user;
 
+import ksvoss.backend.exeptions.SelectedAlphabetIsNullException;
 import ksvoss.backend.models.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,16 +22,20 @@ public class UserController {
 
     @PutMapping("/selectAlphabet/{userid}")
     public List<LetterToSelect> selectAlphabet(@PathVariable String userid, String selectedAlphabet){
-        if(selectedAlphabet==null)
+
+        int selectedAlphabetId=0;
+        try {
+            selectedAlphabetId = Integer.parseInt(selectedAlphabet);
+        }catch(RuntimeException e){
             throw new SelectedAlphabetIsNullException();
-        userService.selectAlphabet(userid,Integer.parseInt(selectedAlphabet));
-        return userService.getListOfLettersNew(userid,Integer.parseInt(selectedAlphabet));
+        }
+        userService.selectAlphabet(userid, selectedAlphabetId);
+        return userService.getListOfLettersNew(userid,selectedAlphabetId);
     }
     @PutMapping("/user/nextElement/{userid}")
     public ElementToTrain nextElement(@PathVariable String userid, @RequestBody ElementToTrain trainedElement){
-        ElementToTrain response=userService.saveResultAndGetNextElement(userid,trainedElement);
-         return response;
-    }
+        return userService.saveResultAndGetNextElement(userid,trainedElement);
+     }
     @PostMapping("/user/newuser")
     public User addUser(@RequestBody NewUser userToAdd){
         return userService.addUser(userToAdd);
@@ -59,8 +64,7 @@ public class UserController {
         UserLoginBody userLoginBody=userService.userLogin(userLoginData);
 
         ElementToTrain elementToTrain=userService.getFirstElement(userLoginBody.getId());
-        UserDataAndFirstElement userDataAndFirstElement=new UserDataAndFirstElement(userLoginBody,elementToTrain);
-         return  userDataAndFirstElement;
-    }
+        return new UserDataAndFirstElement(userLoginBody,elementToTrain);
+     }
 
 }

@@ -1,7 +1,7 @@
 package ksvoss.backend.models;
 
-import ksvoss.backend.user.CombinationLetterInAnAlphabetException;
-import ksvoss.backend.user.EmptyAlphabetDatabaseException;
+import ksvoss.backend.exeptions.CombinationLetterInAnAlphabetException;
+import ksvoss.backend.exeptions.EmptyAlphabetDatabaseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

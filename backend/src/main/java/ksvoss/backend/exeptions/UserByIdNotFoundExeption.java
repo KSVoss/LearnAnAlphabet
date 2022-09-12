@@ -1,4 +1,4 @@
-package ksvoss.backend.user;
+package ksvoss.backend.exeptions;
 
 public class UserByIdNotFoundExeption extends RuntimeException{
     public UserByIdNotFoundExeption(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace){

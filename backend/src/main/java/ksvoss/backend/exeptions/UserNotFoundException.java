@@ -1,4 +1,4 @@
-package ksvoss.backend.user;
+package ksvoss.backend.exeptions;
 
 public class UserNotFoundException extends RuntimeException {
 

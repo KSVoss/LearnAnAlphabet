@@ -3,7 +3,7 @@ package ksvoss.backend.models;
 import java.util.*;
 
 import ksvoss.backend.user.NewUser;
-import ksvoss.backend.user.TooFewLettersSelectedException;
+import ksvoss.backend.exeptions.TooFewLettersSelectedException;
 import org.springframework.data.annotation.Id;
 
 
@@ -130,7 +130,7 @@ public class User {
 
 
 
-    public LearnedElement getRandomElement2(ElementToTrain trainedElement) {
+    public LearnedElement getRandomElement(ElementToTrain trainedElement) {
 
         int alphabetIdOfLast=trainedElement.alphabetId();
         int letterIdOfLast= trainedElement.letterId();

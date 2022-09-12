@@ -1,6 +1,7 @@
 package ksvoss.backend.user;
 
 import ksvoss.backend.alphabet.AlphabetRepository;
+import ksvoss.backend.exeptions.*;
 import ksvoss.backend.models.*;
 import org.springframework.stereotype.Service;
 
@@ -119,7 +120,7 @@ public class UserService {
             user.saveAnswer(trainedElement.correctAnswer(), trainedElement.alphabetId(), trainedElement.letterId());
 
 
-        LearnedElement randomElement = user.getRandomElement2(trainedElement);
+        LearnedElement randomElement = user.getRandomElement(trainedElement);
         ElementToTrain nextElement = learnedElementToElementToTrain(randomElement);
 
         saveUser(user);
@@ -129,7 +130,7 @@ public class UserService {
 
     public ElementToTrain getFirstElement(String userid) {
         User user = loadUser(userid);
-        LearnedElement randomElement = user.getRandomElement2(
+        LearnedElement randomElement = user.getRandomElement(
                 new ElementToTrain("", "", 0, 0, true));
         return learnedElementToElementToTrain(randomElement);
     }
