@@ -31,6 +31,7 @@ export default function Userlogin(
 
     const onLoginSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        let userid:string;
         if (inputMailadress === "") return;
         if (inputPassword === "") return;
 
@@ -49,13 +50,9 @@ export default function Userlogin(
                 }
             });
 
-            props.setUser(request.data.userLoginBody);
-            props.setTrainingLetter(request.data.elementToTrain);
-
-
-
-
-            navigate("/training");
+            props.setUser(request.data );
+            userid=request.data.id;
+            console.log(userid);
 
 
 
@@ -71,11 +68,44 @@ export default function Userlogin(
 
             );
             console.log(error);
+            return;}
+        console.log(userid);
+
+            try {
+                console.log("Try");
+                const request = await axios.get("/user/first/"+userid
+                );
+
+                 props.setTrainingLetter(request.data );
+
+
+
+
+
+            }catch (error) {
+                console.log("catch");
+
+                toast.error(<>
+                        Es müssen mindestens zwei Zeichen ausgewählt sein.
+
+
+                    </>, {position: toast.POSITION.TOP_CENTER}
+                );
+                 navigate("/selectalphabet");
+            }
+
+
+
+
+
+
+            navigate("/training");
+
         }
 
 
 
-    }
+
 
     return(
         <>

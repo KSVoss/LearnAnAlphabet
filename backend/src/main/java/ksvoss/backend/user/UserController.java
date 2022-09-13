@@ -46,7 +46,10 @@ public class UserController {
 
     @GetMapping("/getletters/{userid}")
     public List<LetterToSelect> getLettersFromAlphabet(@PathVariable String userid){
-         return userService.getListOfLetters(userid);
+        System.out.println(userid);
+        List<LetterToSelect> letterToSelectList=userService.getListOfLetters(userid);
+        System.out.println(letterToSelectList.toString());
+         return letterToSelectList;
     }
 
 
@@ -60,11 +63,21 @@ public class UserController {
 
 
     @GetMapping("/user/login")
-    public  UserDataAndFirstElement login(UserLoginData userLoginData){
+    public  UserLoginBody login(UserLoginData userLoginData){
+        System.out.println(userLoginData.toString());
         UserLoginBody userLoginBody=userService.userLogin(userLoginData);
+        System.out.println(userLoginBody);
 
-        ElementToTrain elementToTrain=userService.getFirstElement(userLoginBody.getId());
-        return new UserDataAndFirstElement(userLoginBody,elementToTrain);
+       // ElementToTrain elementToTrain=userService.getFirstElement(userLoginBody.getId());
+        return  userLoginBody ;
      }
 
+     @GetMapping("/user/first/{userid}")
+    public ElementToTrain first(@PathVariable String userid){
+        System.out.println("vorher:"+userid);
+        ElementToTrain elementToTrain=userService.getFirstElement(userid);
+        System.out.println("nachher:"+userid);
+        System.out.println(elementToTrain);
+        return elementToTrain;
+     }
 }
