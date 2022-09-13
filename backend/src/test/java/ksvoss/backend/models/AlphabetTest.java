@@ -105,14 +105,17 @@ class AlphabetTest {
         String actual=alphabet.toString();
 
         // then
-        Assertions.assertEquals("Alphabet{id=5, names=[AlphabetNameInDifferentLanguage[name=deutsch, language=alt-griechisch]], letters=[Letter{id=5, signAsText='X', signAsPicture=null, spelling='ix'}, Letter{id=6, signAsText='Y', signAsPicture=null, spelling='ypsilon'}]}",actual);
+        Assertions.assertEquals(
+                "Alphabet{id=5, names=[AlphabetNameInDifferentLanguage[name=deutsch, language=alt-griechisch]], letters=[Letter{id=5, signAsText='X', signAsPicture=null, spelling='ix', pronunciationStartInMs=0, pronunciationDurationMs=0, pronunciationUrl='null'}, Letter{id=6, signAsText='Y', signAsPicture=null, spelling='ypsilon', pronunciationStartInMs=0, pronunciationDurationMs=0, pronunciationUrl='null'}]}",actual);
 
     }
     @Test
     void findLetterByIdTest(){
         Alphabet alphabet=getAnAlphabetForMocking();
-        Letter letter=alphabet.findLetterById(3);
-        Assertions.assertEquals("Letter{id=3, signAsText='Δ', signAsPicture=null, spelling='Delta'}",letter.toString());
+        Letter actual=alphabet.findLetterById(3);
+         Assertions.assertEquals(
+                "Letter{id=3, signAsText='Δ', signAsPicture=null, spelling='Delta', pronunciationStartInMs=0, pronunciationDurationMs=0, pronunciationUrl='null'}",
+                actual.toString());
     }
     @Test
     void findLetterByIdTestEmptyAlphabet(){
@@ -165,15 +168,4 @@ class AlphabetTest {
 
 
 }
-/*
-	public String name(String preferredLanguage){
-
-		if(names.length==1){
-			return names[0].name();
-		}
-		for (AlphabetNameInDifferentLanguage name : names) {
-			if (name.language().equals(preferredLanguage)) return name.name();
-		}
-		return names[0].name();
-	}
- */
+ 

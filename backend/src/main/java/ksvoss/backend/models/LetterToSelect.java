@@ -25,5 +25,15 @@ public class LetterToSelect{
 
     }
 
-
+    @Override
+     public String toString () {
+        return "LetterToSelect{" +
+                "/" + signAsText  +
+                "/" + letterId +
+                "/" + timesShowed +
+                "/" + timesPassed +
+                "/" + timesPassedLast +
+                "/" + isSelected +
+                '}';
+    }
 }

@@ -258,15 +258,8 @@ class UserServiceTest {
         Optional<Alphabet> optionalAlphabet=Optional.of(getAnAlphabetForMocking());
         when(alphabetRepository.findById(0)).thenReturn(optionalAlphabet);
         List<LetterToSelect> actual=userService.getListOfLetters("thisId");
-        Assertions.assertEquals("""
-                [LetterToSelect{sign='α:, letterId=0, Showed=1, Passed=2, PassedLast=1, Selected=true'}
-                , LetterToSelect{sign='β:, letterId=1, Showed=5, Passed=4, PassedLast=2, Selected=false'}
-                , LetterToSelect{sign='γ:, letterId=2, Showed=0, Passed=0, PassedLast=0, Selected=false'}
-                , LetterToSelect{sign='Δ:, letterId=3, Showed=0, Passed=0, PassedLast=0, Selected=false'}
-                , LetterToSelect{sign='Π:, letterId=4, Showed=0, Passed=0, PassedLast=0, Selected=false'}
-                , LetterToSelect{sign='Σ:, letterId=5, Showed=0, Passed=0, PassedLast=0, Selected=false'}
-                , LetterToSelect{sign='Ω:, letterId=6, Showed=0, Passed=0, PassedLast=0, Selected=false'}
-                ]""",actual.toString());
+          Assertions.assertEquals("[LetterToSelect{/α/0/1/2/1/true}, LetterToSelect{/β/1/5/4/2/false}, LetterToSelect{/γ/2/0/0/0/false}, LetterToSelect{/Δ/3/0/0/0/false}, LetterToSelect{/Π/4/0/0/0/false}, LetterToSelect{/Σ/5/0/0/0/false}, LetterToSelect{/Ω/6/0/0/0/false}]"
+                  ,actual.toString());
 
     }
 
