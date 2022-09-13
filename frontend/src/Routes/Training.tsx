@@ -53,6 +53,7 @@ import './Training.css'
 
 
 
+
             } else {
 
                  answerWasIncorrect(props.trainingLetter.letterAsString, props.trainingLetter.spelling);

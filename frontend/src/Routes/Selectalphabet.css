@@ -1,0 +1,7 @@
+#selectLetterBox{
+    height: 150px;
+    overflow: auto;
+    border-color: slategray;
+    border-width: 5px;
+    border-style: solid;
+ }

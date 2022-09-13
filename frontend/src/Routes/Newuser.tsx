@@ -68,8 +68,8 @@ export default function Newuser(
             <form onSubmit={submitNewUser}>
             <p>Nickname</p><input value={inputNickname} onChange={event=>setInputNickname(event.target.value)}/>
             <p>Mailadresse</p><input value={inputMailadress} onChange={event=>setInputMailadress(event.target.value)}/>
-            <p>Password</p><input value={inputPassword} onChange={event=>setInputPassword(event.target.value)}/>
-            <p>Password wiederholen</p><input value={repeatPassword} onChange={event=>setRepeatPassword(event.target.value)}/>
+            <p>Password</p><input value={inputPassword} type="password" onChange={event=>setInputPassword(event.target.value)}/>
+            <p>Password wiederholen</p><input value={repeatPassword} type="password" onChange={event=>setRepeatPassword(event.target.value)}/>
 
             <button>CreateUser</button>
 

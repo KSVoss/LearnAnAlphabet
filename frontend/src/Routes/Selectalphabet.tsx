@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import {NameOfAlphabet} from "../Models/NameOfAlphabet";
 import axios from "axios";
-import {toast} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
  import {LetterToSelect} from "../Models/LetterToSelect";
  import {User} from "../Models/User";
+import './Selectalphabet.css'
+
+
 
 
 
@@ -125,6 +128,7 @@ export default function Selectalphabet(props: {
 
 
 
+            <div id="selectLetterBox">
                  {nameOfLetters
                     .map((nameOfLetter) => <label>
 
@@ -143,10 +147,13 @@ export default function Selectalphabet(props: {
 
 
                     </label>)}
-
-
-
+            </div>
             <button onClick={goToTraining}>OK</button>
 
-         </>)
+
+
+            <ToastContainer/>
+
+
+        </>)
 }

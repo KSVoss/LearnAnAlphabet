@@ -5,10 +5,12 @@ import java.util.*;
 
 import ksvoss.backend.user.NewUser;
 import ksvoss.backend.exeptions.TooFewLettersSelectedException;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 
 
+@Data
 public class User {
 
 
@@ -45,53 +47,6 @@ public class User {
         this.preferredLanguage ="deutsch";
      }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
-    public String getMailadress() {
-        return mailadress;
-    }
-
-    public void setMailadress(String mailadress) {
-        this.mailadress = mailadress;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getPasswordHashed() {
-        return passwordHashed;
-    }
-
-    public void setPasswordHashed(String passwordHashed) {
-        this.passwordHashed = passwordHashed;
-    }
-
-    public void setPreferredLanguage(String preferredLanguage) {
-        this.preferredLanguage = preferredLanguage;
-    }
-
-    public void setLearnedElements(List<LearnedElement> learnedElements) {
-        this.learnedElements = learnedElements;
-    }
-
-    public static Random getRandom() {
-        return random;
-    }
-
-    public static void setRandom(SecureRandom  random) {
-        User.random = random;
-    }
-
-    public void setSelectedAlphabetId(int selectedAlphabetId){
-        this.selectedAlphabetId=selectedAlphabetId;
-    }
-    public int getSelectedAlphabetId(){
-        return this.selectedAlphabetId;
-    }
 
     public boolean isPasswordCorrect(String password){
         // return BCrypt.checkps(password,this.passwordHashed);
@@ -101,31 +56,10 @@ public class User {
 
 
 
-    public String getId() {
-        return id;
-    }
 
 
 
 
-    public String getNickname() {
-        return nickname;
-    }
-
-
-
-
-    public String getPreferredLanguage() {
-        return preferredLanguage;
-    }
-
-    public boolean isWeightedRadomize() {
-        return weightedRadomize;
-    }
-
-    public List<LearnedElement>  getLearnedElements() {
-        return learnedElements;
-    }
 
 
 

@@ -102,5 +102,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: de.flapdoodle:de.flapdoodle.os:1.1.11" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-mongodb:2.7.2" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-sync:4.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.24" level="project" />
   </component>
 </module>
