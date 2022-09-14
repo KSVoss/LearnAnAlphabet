@@ -5,34 +5,32 @@ import java.util.*;
 
 import ksvoss.backend.user.NewUser;
 import ksvoss.backend.exeptions.TooFewLettersSelectedException;
-import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
-@Data
 public class User {
-    static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    //static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     @Id
     private String id;
-    private String mailadress="";        // brauche ich beim Login, Zugriff über Repo
-    private String nickname="";
-    private String passwordHashed="";
-    private String preferredLanguage="";
-    private boolean weightedRadomize=false;
+    private String mailadress = "";
+    private String nickname = "";
+    private String passwordHashed = "";
+    private String preferredLanguage = "";
+    private boolean weightedRadomize = false;
     private int selectedAlphabetId;
-    private List <LearnedElement>   learnedElements;
+    private List<LearnedElement> learnedElements;
     static SecureRandom random = new SecureRandom();
 
-     public User() {
+    public User() {
     }
 
     public User(String mailadress, String nickname, String password) {
         this.mailadress = mailadress;
         this.nickname = nickname;
-        this.passwordHashed = passwordEncoder.encode(password);
+        //this.passwordHashed = passwordEncoder.encode(password);
+        this.passwordHashed = password;
         this.id = UUID.randomUUID().toString();
         this.learnedElements = new ArrayList<>();
         this.selectedAlphabetId = 0;
@@ -42,11 +40,76 @@ public class User {
     public User(NewUser newUser) {
         this.mailadress = newUser.mailadress();
         this.nickname = newUser.nickname();
-        this.passwordHashed = passwordEncoder.encode(newUser.password());
+        //this.passwordHashed = passwordEncoder.encode(newUser.password());
+        this.passwordHashed = newUser.password();
         this.id = UUID.randomUUID().toString();
         this.learnedElements = new ArrayList<>();
         this.selectedAlphabetId = 0;
         this.preferredLanguage = "deutsch";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMailadress() {
+        return mailadress;
+    }
+
+    public void setMailadress(String mailadress) {
+        this.mailadress = mailadress;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPasswordHashed() {
+        return passwordHashed;
+    }
+
+    public void setPasswordHashed(String passwordHashed) {
+        this.passwordHashed = passwordHashed;
+    }
+
+    public String getPreferredLanguage() {
+        return preferredLanguage;
+    }
+
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
+    }
+
+    public boolean isWeightedRadomize() {
+        return weightedRadomize;
+    }
+
+    public void setWeightedRadomize(boolean weightedRadomize) {
+        this.weightedRadomize = weightedRadomize;
+    }
+
+    public int getSelectedAlphabetId() {
+        return selectedAlphabetId;
+    }
+
+    public void setSelectedAlphabetId(int selectedAlphabetId) {
+        this.selectedAlphabetId = selectedAlphabetId;
+    }
+
+    public List<LearnedElement> getLearnedElements() {
+        return learnedElements;
+    }
+
+    public void setLearnedElements(List<LearnedElement> learnedElements) {
+        this.learnedElements = learnedElements;
     }
 
     @Override
@@ -63,7 +126,9 @@ public class User {
     }
 
     public boolean isPasswordCorrect(String password) {
-        return passwordEncoder.matches(password, passwordHashed);
+        return passwordHashed.equals(password);
+
+        //return passwordEncoder.matches(password, passwordHashed);
     }
 
 
