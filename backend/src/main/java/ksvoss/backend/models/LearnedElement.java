@@ -1,11 +1,15 @@
 package ksvoss.backend.models;
 
+import lombok.Data;
+
 import java.util.Objects;
+
+@Data
 
 public class LearnedElement {
     private final int alphabetID;
     private final int letterID;
-    private boolean selected ;
+    private boolean selected;
     private int timesShowed;
     private int timesPassed;
 
@@ -36,13 +40,16 @@ public class LearnedElement {
         return Objects.hash(alphabetID, letterID);
     }
 
-    int getTimesShowed(){
-        return timesShowed;
+
+    public boolean isEqual(int alphabetID, int letterID) {
+        return ((this.alphabetID == alphabetID) && (this.letterID == letterID));
     }
-    int getTimesPassed(){
+
+    int getTimesPassed() {
         return timesPassed;
     }
-    public long getIsPassedLast50TimesAsBooleanArray(){
+
+    public long getIsPassedLast50TimesAsBooleanArray() {
         return isPassedLast50TimesAsBooleanArray;
     }
 
@@ -73,30 +80,12 @@ public class LearnedElement {
         if(isPassed){
             isPassedLast50TimesAsBooleanArray = isPassedLast50TimesAsBooleanArray |1;}
         isPassedLast50TimesAsBooleanArray = isPassedLast50TimesAsBooleanArray &(0x3ffffffffffffL);
-     }
+    }
 
     public int timesPassedLast50(){
         return Long.bitCount(isPassedLast50TimesAsBooleanArray);
     }
 
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-    public boolean isSelected(){
-        return this.selected;
-    }
-    public int getAlphabetID(){
-        return this.alphabetID;
-    }
-    public int getLetterID(){
-        return this.letterID;
-    }
-
-    public boolean isEqual(int alphabetId, int letterId) {
-        if(this.alphabetID!=alphabetId)return false;
-        return this.letterID == letterId;
-    }
 
     public void changeSelected() {
         selected=!selected;

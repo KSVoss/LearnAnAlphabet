@@ -37,7 +37,6 @@ class LetterTest {
         // when
         String actual=letter.toString();
         // then
-        System.out.println(actual);
         Assertions.assertEquals(
                 "Letter{id=5, signAsText='X', signAsPicture=null, spelling='ix', pronunciationStartInMs=0, pronunciationDurationMs=0, pronunciationUrl='null'}"
                 ,actual);

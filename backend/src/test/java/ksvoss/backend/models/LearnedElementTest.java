@@ -1,5 +1,6 @@
 package ksvoss.backend.models;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,13 +68,44 @@ class LearnedElementTest {
         LearnedElement learnedElement = new LearnedElement(1, 1, true, 0, 0,  0);
 
         learnedElement.incrementTimesPassed(true);
-        int actual1_1=learnedElement.getTimesPassed();
+        int actual1_1 = learnedElement.getTimesPassed();
         learnedElement.incrementTimesPassed(false);
-        int actual1_2=learnedElement.getTimesPassed();
+        int actual1_2 = learnedElement.getTimesPassed();
         assertAll(
-                ()->assertEquals(1,actual1_1),
-                ()->assertEquals(1,actual1_2)
+                () -> assertEquals(1, actual1_1),
+                () -> assertEquals(1, actual1_2)
         );
     }
+
+    @Test
+    void timesPassLast50Test() {
+        LearnedElement learnedElement = new LearnedElement(1, 1, true, 0, 0, 21);
+        int actual = learnedElement.timesPassedLast50();
+        Assertions.assertEquals(3, actual);
+    }
+
+    @Test
+    void changeSelectedTest() {
+        LearnedElement learnedElement = new LearnedElement(1, 1, true, 0, 0, 21);
+
+        learnedElement.changeSelected();
+        boolean actualUnselected = learnedElement.isSelected();
+        learnedElement.changeSelected();
+        boolean actualSelected = learnedElement.isSelected();
+        assertAll(
+                () -> assertFalse(actualUnselected),
+                () -> assertTrue(actualSelected)
+        );
+
+
+    }
+    /*
+     public void changeSelected() {
+        selected=!selected;
+    }
+
+
+     */
+
 }
 
