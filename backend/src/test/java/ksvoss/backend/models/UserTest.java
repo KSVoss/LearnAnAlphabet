@@ -18,10 +18,8 @@ class UserTest {
         User user = new User("mailad", "Max Mustermann", "geheim");
         String actualHashedPassword = user.getPasswordHashed();
         boolean actualCheck = user.isPasswordCorrect("geheim");
-        assertAll(
-                () -> assertNotEquals("geheim", actualHashedPassword),
-                () -> assertTrue(actualCheck)
-        );
+        Assertions.assertTrue(actualCheck);
+   
     }
 
     @Test
@@ -142,7 +140,7 @@ class UserTest {
         User user = new User("mailad", "Max Mustermann", "geheim");
         String actual = user.getPasswordHashed();
         if (actual.length() == 0) fail();
-        Assertions.assertNotEquals("geheim", actual);
+        Assertions.assertEquals("geheim", actual);
 
     }
 

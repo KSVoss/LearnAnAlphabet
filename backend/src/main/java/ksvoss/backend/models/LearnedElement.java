@@ -1,10 +1,8 @@
 package ksvoss.backend.models;
 
-import lombok.Data;
 
 import java.util.Objects;
 
-@Data
 
 public class LearnedElement {
     private final int alphabetID;
@@ -14,6 +12,38 @@ public class LearnedElement {
     private int timesPassed;
 
     private long isPassedLast50TimesAsBooleanArray;
+
+    public int getAlphabetID() {
+        return alphabetID;
+    }
+
+    public int getLetterID() {
+        return letterID;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public int getTimesShowed() {
+        return timesShowed;
+    }
+
+    public void setTimesShowed(int timesShowed) {
+        this.timesShowed = timesShowed;
+    }
+
+    public void setTimesPassed(int timesPassed) {
+        this.timesPassed = timesPassed;
+    }
+
+    public void setIsPassedLast50TimesAsBooleanArray(long isPassedLast50TimesAsBooleanArray) {
+        this.isPassedLast50TimesAsBooleanArray = isPassedLast50TimesAsBooleanArray;
+    }
 
     @Override
     public String toString() {
