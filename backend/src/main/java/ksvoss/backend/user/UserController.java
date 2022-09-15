@@ -38,7 +38,7 @@ public class UserController {
      }
     @PostMapping("/user/newuser")
     public User addUser(@RequestBody NewUser userToAdd){
- 
+
 
         return userService.addUser(userToAdd);
     }
@@ -63,8 +63,7 @@ public class UserController {
 
     @GetMapping("/user/login")
     public  UserLoginBody login(UserLoginData userLoginData){
-
-         return  userService.userLogin(userLoginData);
+        return userService.userLogin(userLoginData);
      }
 
      @GetMapping("/user/first/{userid}")

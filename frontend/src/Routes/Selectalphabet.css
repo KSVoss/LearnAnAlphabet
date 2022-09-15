@@ -1,7 +1,18 @@
-#selectLetterBox{
+body {
+    margin: 10%;
+}
+
+#selectLetterBox {
     height: 150px;
     overflow: auto;
     border-color: slategray;
     border-width: 5px;
     border-style: solid;
- }
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#selectAlphabetDropbox {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}

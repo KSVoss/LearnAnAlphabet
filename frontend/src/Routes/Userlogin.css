@@ -1,14 +1,16 @@
-.inputnames{
+.inputnames {
     font-size: 10px;
-    color:indianred;
+    color: indianred;
 }
-#createButton{
+
+#createButton {
     position: absolute;
     left: 30px;
 
 }
-#forgotButton{
-    position:absolute;
-    right:30px;
+
+#forgotButton {
+    position: absolute;
+    right: 30px;
 
 }
