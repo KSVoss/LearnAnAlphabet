@@ -60,6 +60,7 @@
 
 
     <build>
+        <finalName>LearnAnAlphabet</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -86,6 +87,7 @@
                     </goals>
                 </execution>
                 </executions>
+
 
             </plugin>
         </plugins>
