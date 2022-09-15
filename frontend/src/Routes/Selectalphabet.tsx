@@ -80,10 +80,14 @@ export default function Selectalphabet(props: {
             })
     }
     useEffect(
-        () => getAllAlphabets(), []
+        () => getAllAlphabets(),
+        //eslint-disable-next-line
+        []
     );
     useEffect(
-        () => getAllLettersOfAlphabet(), []
+        () => getAllLettersOfAlphabet(),
+        //eslint-disable-next-line
+        []
     );
     return (
         <>
