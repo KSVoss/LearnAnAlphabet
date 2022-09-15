@@ -1,0 +1,27 @@
+body {
+    background-color: lightgoldenrodyellow;
+}
+
+button {
+    background-color: lightgoldenrodyellow;
+}
+
+#alphabetbutton {
+    position: absolute;
+    right: 20px;
+}
+
+#userbutton {
+    position: absolute;
+    left: 20px;
+}
+
+#elementToTrain {
+    font-size: 50px;
+    color: mediumblue;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}

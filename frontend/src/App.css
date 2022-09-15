@@ -1,0 +1,15 @@
+h1{
+    text-align: center;
+}
+hr{
+    color: cornflowerblue;
+}
+#latinDescription{
+    color: lightgray;
+    text-align: center;
+    font-size: smaller;
+}
+h2{
+    text-align: center;
+    color: slategray;
+}
